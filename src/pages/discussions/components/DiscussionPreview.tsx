@@ -1,14 +1,16 @@
 import type DiscussionPreviewType from "../types/DiscussionPreviewType.ts";
 import {ChevronRight} from "lucide-react";
 import {useNavigate} from "react-router-dom";
+import {statusMap} from "../mapper/statusMap.ts";
 
 interface props {
+
     discussionPreview: DiscussionPreviewType;
 }
 
 export default function DiscussionPreview({ discussionPreview }: props) {
     const navigate = useNavigate();
-    const { id, title, result, votes, sequence, discussions, hashtags } = discussionPreview;
+    const { id, status, title, result, votes, discussions, hashTags } = discussionPreview;
     return (
         <div
             key={discussionPreview.id}
@@ -23,20 +25,20 @@ export default function DiscussionPreview({ discussionPreview }: props) {
             {/* Tags and round */}
             <div className="flex items-start justify-between mb-3">
                 <div className="flex gap-2">
-                    {/*<span>*/}
-                    {/*    {status}*/}
-                    {/*</span>*/}
-                    {hashtags?.map((hashtag: string, index) => (
+                    <span className="text-sm text-muted-foreground font-medium">
+                        {statusMap[status]}
+                    </span>
+                    {hashTags?.map((hashtag: string, index) => (
                         <span
                             key={index}
                             className="text-sm text-muted-foreground font-medium"
                         >
-                          #{hashtag}
+                          {hashtag}
                         </span>
                     ))}
                 </div>
 
-                <span className="text-sm text-muted-foreground">{sequence}번 동네한표</span>
+                <span className="text-sm text-muted-foreground">{id}번 동네한표</span>
             </div>
 
             {/* Title */}
